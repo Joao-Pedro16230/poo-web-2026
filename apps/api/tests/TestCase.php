@@ -1,9 +1,10 @@
 <?php
 
-teste ('User created', function () {
-    $this->assertDatabaseCount('users', 0);
+namespace Tests;
 
-    // chamada principal
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
-    $this->assertDatabaseHas('users');
-})
+abstract class TestCase extends BaseTestCase
+{
+    //
+}
