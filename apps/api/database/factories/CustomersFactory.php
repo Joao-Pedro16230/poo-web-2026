@@ -20,8 +20,8 @@ class CustomersFactory extends Factory
         return [
             'name' => fake()->name(),
             'email'=> fake()->email(),
-            'phome'=> fake()->phoneNumber(),
-            'birth_date'=> fake()->date()
+            'phone'=> fake()->phoneNumber(),
+            'birth_date'=> fake()->date(),
         ];
     }
 }
