@@ -1,0 +1,31 @@
+@baseUri = http://localhost:8182/api
+
+###index
+GET {{baseUri}}/customers HTTP/1.1
+Content-Type: application/json
+
+###store
+POST {{baseUri}}/customers HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Eric Yuri",
+    "email": "galo@gmail"
+}
+
+###
+GET {{baseUri}}//customers/1 HTTP/1.1
+Content-Type: application/json
+
+###
+PUT {{baseUri}}/customers/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "caderno",
+    "description": "Produto ATUALIZADA via API/REST"
+}
+
+###
+DELETE {{baseUri}}/customers/1 HTTP/1.1
+Content-Type: application/json

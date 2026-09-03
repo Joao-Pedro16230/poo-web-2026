@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryStoreRequest;
+use App\Http\Requests\CategoryUpdateRequest;
+
 
 class CategoryController extends Controller
 {
@@ -18,13 +21,12 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryStoreRequest $request)
     {
-        $category = new Category();
-        $category->name = $request->name;
-        $category->description = $request->description;
 
-        $category->save();
+        $data = $request->validated();
+
+        $category = Category::create($data);
 
         return $category;
     }
@@ -34,48 +36,26 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Category $category)
     {
-        $category = Category::find($id);
-
-        if (!$category) {
-            return response()->json([
-                'message' => 'Categoria nao encontrada',
-            ], 404);
-        }
 
         return $category;
     }
 
 
-    public function update(Request $request, string $id)
+    public function update(CategoryUpdateRequest $request, Category $category)
     {
-        $category = Category::find($id);
+        $category->update($request->validated());
 
-        if (!$category) {
-            return response()->json([
-                'message' => 'Categoria nao encontrada',
-            ], 404);
-        }
-
-        $category->name = $request->name ?? $category->name;
-        $category->description = $request->description ?? $category->description;
-        $category->save();
         return $category;
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        $category = Category::find($id);
-
-        if (!$category) {
-            return response()->json([
-                'message' => 'Categoria nao encontrada',
-            ], 404);
-        }
 
         $hasProduct = \App\Models\Product::where('category_id', $category->id)->exists();
 
