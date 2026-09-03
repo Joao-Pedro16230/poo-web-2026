@@ -2,56 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Customers;
-use App\Http\Requests\CustomersRequest;
-
+use App\Models\Customer;
+use App\Http\Requests\CustomerStoreRequest;
+use App\Http\Requests\CustomerUpdateRequest;
 
 class CustomerController extends Controller
 {
     public function index()
     {
-        return Customers::paginate();
+        return Customer::paginate();
     }
 
-    public function store(CustomersRequest $request)
+    public function store(CustomerStoreRequest $request)
     {
-        $customer = new Customers();
-        $customer->name = $request->name;
-        $customer->email = $request->email;
+        $data = $request->validated();
 
-        $customer->save();
+        $customer = Customer::create($data);
 
         return $customer;
     }
 
-    public function show(Customers $customer)
+    public function show(Customer $customer)
     {
         return $customer;
     }
 
-    public function update(CustomersRequest $request, Customers $customer)
-    {
+    public function update(
+        Customer $customer,
+        CustomerUpdateRequest $request
+    ) {
+        $data = $request->validated();
 
-        if (!$customer) {
-            return response()->json(['message' => 'Cliente não encontrado'], 404);
-        }
-        $customer->name = $request->name ?? $customer->name;
-        $customer->email = $request->email ?? $customer->email;
-
-        $customer->save();
+        $customer->update($data);
 
         return $customer;
     }
 
-    public function destroy(Customers $customer)
+    public function destroy(Customer $customer)
     {
-        if (!$customer) {
-            return response()->json(['message' => 'Cliente não encontrado'], 404);
-        }
-
         $customer->delete();
 
-        return response()->json(['message' => 'Cliente excluido'], 200);
+        return response()->noContent();
     }
 }
