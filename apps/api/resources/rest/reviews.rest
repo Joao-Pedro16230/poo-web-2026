@@ -1,0 +1,49 @@
+@baseUri = http://localhost:8182/api
+
+### index - listagem
+GET {{baseUri}}/reviews HTTP/1.1
+Content-Type: application/json
+
+
+### show - consulta de um registro
+GET {{baseUri}}/reviews/1 HTTP/1.1
+Content-Type: application/json
+
+
+### store - criação válida
+POST {{baseUri}}/reviews HTTP/1.1
+Content-Type: application/json
+
+{
+    "product_id": 1,
+    "customer_id": 1,
+    "rating": 5,
+    "comment": "Produto bom"
+}
+
+
+### store - criação inválida
+POST {{baseUri}}/reviews HTTP/1.1
+Content-Type: application/json
+
+{
+    "product_id": 1,
+    "customer_id": 1,
+    "rating": 8,
+    "comment": "Teste de avaliação inválida"
+}
+
+
+### update
+PUT {{baseUri}}/reviews/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "rating": 4,
+    "comment": "Avaliação ATUALIZADA via API/REST"
+}
+
+
+### destroy
+DELETE {{baseUri}}/reviews/1 HTTP/1.1
+Content-Type: application/json

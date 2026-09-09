@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<Customer>
  */
-class CustomersFactory extends Factory
+class CustomerFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,9 +19,9 @@ class CustomersFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'email'=> fake()->email(),
-            'phone'=> fake()->phoneNumber(),
-            'birth_date'=> fake()->date(),
+            'email' => fake()->email(),
+            'phone' => fake()->phoneNumber(),
+            'birth_date' => fake()->date(),
         ];
     }
 }
