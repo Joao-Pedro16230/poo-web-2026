@@ -1,18 +1,17 @@
-@baseUri = http://localhost:8182/api
-
-### index - listagem
+### Index - listagem
 GET {{baseUri}}/reviews HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
-
-### show - consulta de um registro
+### Show - consulta de um registro
 GET {{baseUri}}/reviews/1 HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
-
-### store - criação válida
+### Store - criação válida
 POST {{baseUri}}/reviews HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
     "product_id": 1,
@@ -21,10 +20,10 @@ Content-Type: application/json
     "comment": "Produto bom"
 }
 
-
-### store - criação inválida
+### Store - criação inválida
 POST {{baseUri}}/reviews HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
     "product_id": 1,
@@ -33,17 +32,17 @@ Content-Type: application/json
     "comment": "Teste de avaliação inválida"
 }
 
-
-### update
+### Update
 PUT {{baseUri}}/reviews/1 HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
     "rating": 4,
     "comment": "Avaliação ATUALIZADA via API/REST"
 }
 
-
-### destroy
+### Destroy
 DELETE {{baseUri}}/reviews/1 HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
