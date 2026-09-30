@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Models\Product;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
-
 
 class CategoryController extends Controller
 {
@@ -23,7 +22,6 @@ class CategoryController extends Controller
      */
     public function store(CategoryStoreRequest $request)
     {
-
         $data = $request->validated();
 
         $category = Category::create($data);
@@ -31,24 +29,24 @@ class CategoryController extends Controller
         return $category;
     }
 
-
-
     /**
      * Display the specified resource.
      */
     public function show(Category $category)
     {
-
         return $category;
     }
 
-
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(CategoryUpdateRequest $request, Category $category)
     {
-        $category->update($request->validated());
+        $data = $request->validated();
+
+        $category->update($data);
 
         return $category;
-
     }
 
     /**
@@ -56,19 +54,16 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-
-        $hasProduct = \App\Models\Product::where('category_id', $category->id)->exists();
+        $hasProduct = Product::where('category_id', $category->id)->exists();
 
         if ($hasProduct) {
             return response()->json([
-                'message' => 'Categoria nao encontrada',
+                'message' => 'Categoria não pode ser excluída, pois possui produtos vinculados.',
             ], 422);
         }
 
         $category->delete();
 
-        return response()->json([
-            'message' => 'Cetegorai excluida',
-        ], 204);
+        return response()->noContent();
     }
 }
